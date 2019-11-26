@@ -1,44 +1,6 @@
 import React, { useState } from 'react';
-import './App.css';
-
-interface TodoProps {
-  todo: {
-    text: string,
-    isCompleted: boolean
-  },
-  index: number,
-  completeTodo: (index: number) => void,
-  removeTodo: (index: number) => void,
-}
-
-const Todo: React.FC<TodoProps> = ({todo, index, completeTodo, removeTodo}) => {
-  return (
-    <div style={{ textDecoration: todo.isCompleted ? 'line-through' : '' }} className="todo">
-      {todo.text}
-      <div>
-        <button onClick={() => completeTodo(index)}>Complete</button>
-        <button onClick={() => removeTodo(index)}>X</button>
-      </div>
-    </div>
-  )
-}
-
-const TodoForm: React.FC<{addTodo: (text:string) => void}> = ({addTodo}) => {
-  const [value, setValue] = useState("")
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    if(!value) return
-    addTodo(value)
-    setValue("")
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" className="input" placeholder="Add Todo..." value={value} onChange={e => setValue(e.target.value)} />
-    </form>
-  )
-}
+import {Todo} from './Todo'
+import {TodoForm} from './TodoForm'
 
 const App: React.FC = () => {
   const [todos, setTodos] = useState([
@@ -76,4 +38,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App;
+export default App
