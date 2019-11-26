@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import {Todo} from './Todo'
 import {TodoForm} from './TodoForm'
 
+interface Todos {
+  text: string,
+  isCompleted: boolean
+}
+
 const App: React.FC = () => {
-  const [todos, setTodos] = useState([
-    { text: "Learn about React", isCompleted: true },
-    { text: "Meet friend for lunch", isCompleted: true },
-    { text: "Build really cool todo app", isCompleted: false }
-  ])
+  const [todos, setTodos] = useState<Todos[]>([])
 
   const addTodo = (text: string) => {
     const newTodos = [...todos, {text, isCompleted: false}]
