@@ -8,14 +8,16 @@ interface TodoProps {
   },
   index: number,
   completeTodo: (index: number) => void,
+  removeTodo: (index: number) => void,
 }
 
-const Todo: React.FC<TodoProps> = ({todo, index, completeTodo}) => {
+const Todo: React.FC<TodoProps> = ({todo, index, completeTodo, removeTodo}) => {
   return (
     <div style={{ textDecoration: todo.isCompleted ? 'line-through' : '' }} className="todo">
       {todo.text}
       <div>
         <button onClick={() => completeTodo(index)}>Complete</button>
+        <button onClick={() => removeTodo(index)}>X</button>
       </div>
     </div>
   )
@@ -56,11 +58,17 @@ const App: React.FC = () => {
     setTodos(newTodos)
   }
 
+  const removeTodo = (index: number) => {
+    const newTodos = [...todos]
+    newTodos.splice(index, 1)
+    setTodos(newTodos)
+  }
+
   return (
     <div className="app">
       <div className="todo-list">
         {todos.map((todo, index) => (
-          <Todo key={index} index={index} todo={todo}  completeTodo={completeTodo}/>
+          <Todo key={index} index={index} todo={todo}  completeTodo={completeTodo} removeTodo={removeTodo}/>
         ))}
         <TodoForm addTodo={addTodo} />
       </div>
